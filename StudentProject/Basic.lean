@@ -23,8 +23,7 @@ have ha2 : a * b * c > a ^ 2 := by
     _ = a ^ 2 := by ring
 
 -- so a < bc
-have ha3 : a < b * c := by
-  calc
+have ha3 : a < b * c := by sorry
 
 -- abc > b^2
 have hb2 : a * b * c > b ^ 2 := by
