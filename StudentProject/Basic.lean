@@ -46,6 +46,17 @@ have hb2 : a * b * c > b ^ 2 := by
     _ = b ^ 2 := by ring
 
 -- so b < ac
+have hb3 : b < a * c := by
+  calc
+    b = b * 1 := by ring
+    _ = b * (b / b) := by field_simp
+    _ = (b * b) / b := by ring
+    _ = (b ^ 2) / b := by ring
+    _ < (a * b * c) / b := by rel [hb2]
+    _ = (a * c * b) / b := by ring
+    _ = a * c * (b / b) := by field_simp
+    _ = a * c * 1 := by field_simp
+    _ = a * c := by ring
 
 -- abc > c^2
 have hc2 : a * b * c > c ^ 2 := by
@@ -55,4 +66,15 @@ have hc2 : a * b * c > c ^ 2 := by
     _ = c ^ 2 := by ring
 
 -- so c < ab
+have hc3 : c < a * b := by
+  calc
+    c = c * 1 := by ring
+    _ = c * (c / c) := by field_simp
+    _ = (c * c) / c := by ring
+    _ = (c ^ 2) / c := by ring
+    _ < (a * b * c) / c := by rel [hc2]
+    _ = a * b * (c / c) := by field_simp
+    _ = a * b * 1 := by field_simp
+    _ = a * b := by ring
+
 sorry
