@@ -11,6 +11,9 @@
 
 import Mathlib.Data.Real.Basic
 import Mathlib.Tactic.Linarith
+import Mathlib.Tactic.FieldSimp
+import Mathlib.Algebra.Order.Field.Basic
+
 example {a b c : ℝ } (ha: a > 0) (hb : b > 0) ( hc : c > 0) (h : a + b + c ≥ a * b * c) : ¬ (a ^ 2 + b ^ 2 + c ^ 2 < a * b * c) := by
 -- Suppose by way of contradiction that a^2 + b^2 + c^2 < abc
 intro H
@@ -23,7 +26,17 @@ have ha2 : a * b * c > a ^ 2 := by
     _ = a ^ 2 := by ring
 
 -- so a < bc
-
+have ha3 : a < b * c := by
+  calc
+    a = a * 1 := by ring
+    _ = a * (a / a) := by field_simp
+    _ = (a * a) / a := by ring
+    _ = (a ^ 2) / a := by ring
+    _ < (a * b * c) / a := by rel [ha2]
+    _ = (b * c * a) / a := by ring
+    _ = b * c * (a / a) := by field_simp
+    _ = b * c * 1 := by field_simp
+    _ = b * c := by ring
 
 -- abc > b^2
 have hb2 : a * b * c > b ^ 2 := by
