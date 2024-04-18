@@ -23,7 +23,7 @@ have ha2 : a * b * c > a ^ 2 := by
     _ = a ^ 2 := by ring
 
 -- so a < bc
-have ha3 : a < b * c := by sorry
+
 
 -- abc > b^2
 have hb2 : a * b * c > b ^ 2 := by
@@ -38,7 +38,8 @@ have hb2 : a * b * c > b ^ 2 := by
 have hc2 : a * b * c > c ^ 2 := by
   calc
     a * b * c > a ^ 2 + b ^ 2 + c ^ 2 := by linarith [H]
-    _ > 0 ^ 2 + 0 ^ 2 + c ^ 2 := by rel [ha,hc]
+    _ > 0 ^ 2 + 0 ^ 2 + c ^ 2 := by rel [ha,hb]
     _ = c ^ 2 := by ring
 
 -- so c < ab
+sorry
