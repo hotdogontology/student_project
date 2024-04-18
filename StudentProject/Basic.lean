@@ -77,4 +77,5 @@ have hc3 : c < a * b := by
     _ = a * b * 1 := by field_simp
     _ = a * b := by ring
 
+-- abc ≥ a^2 + b^2 + c^2 ≥ ab + bc + ca by AM-GM
 sorry
