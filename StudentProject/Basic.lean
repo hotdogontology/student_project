@@ -78,4 +78,14 @@ have hc3 : c < a * b := by
     _ = a * b := by ring
 
 -- abc ≥ a^2 + b^2 + c^2 ≥ ab + bc + ca by AM-GM
-sorry
+
+--a + b + c < ab + bc + ca
+have h1 : a + b + c < a * b + b * c + a * c := by
+  calc
+    a + b + c = a + (b + c) := by ring
+    _ < b * c + (b + c) := by rel [ha3]
+    _ = (b * c + c) + b := by ring
+    _ < (b * c + c) + a * c := by rel [hb3]
+    _ = (a * c + b * c) + c := by ring
+    _ < (a * c + b * c) + a * b := by rel [hc3]
+    _ = a * b + b * c + a * c := by ring
