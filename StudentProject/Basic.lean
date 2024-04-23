@@ -13,6 +13,7 @@ import Mathlib.Data.Real.Basic
 import Mathlib.Tactic.Linarith
 import Mathlib.Tactic.FieldSimp
 import Mathlib.Algebra.Order.Field.Basic
+import Mathlib.Analysis.MeanInequalities
 
 example {a b c : ℝ } (ha: a > 0) (hb : b > 0) ( hc : c > 0) (h : a + b + c ≥ a * b * c) : ¬ (a ^ 2 + b ^ 2 + c ^ 2 < a * b * c) := by
 -- Suppose by way of contradiction that a^2 + b^2 + c^2 < abc
@@ -90,5 +91,15 @@ have h1 : a + b + c < a * b + b * c + a * c := by
     _ < (a * c + b * c) + a * b := by rel [hc3]
     _ = a * b + b * c + a * c := by ring
 
--- ab + bc + ca ≤ a^2 + b^2 + c^2
-sorry
+-- apply AM-GM to a,b
+-- this is the right theorem but we need to get it to work
+--https://github.com/leanprover-community/mathlib4/blob/03b471425ef6894a1385678605489d7ef289754b/Mathlib/Analysis/MeanInequalities.lean#L201-L205
+have hab : a ^ (0.5 : ℝ) * b ^ (0.5 : ℝ) ≤ (1/2) * a + (1/2) * b := by geom_mean_le_arith_mean2_weighted (1/2) (1/2) a b
+
+-- apply AM-GM to b,c
+
+-- apply AM-GM to a,c
+
+-- add three cases of AM-GM and divide by 2
+
+-- chain inequalities together to get a contradiction
