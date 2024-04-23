@@ -93,9 +93,9 @@ have h1 : a + b + c < a * b + b * c + a * c := by
 
 -- apply AM-GM to a,b
 -- this is the right theorem but we need to get it to work
+-- might need to cast 1/2 to Real instead of using 0.5
 --https://github.com/leanprover-community/mathlib4/blob/03b471425ef6894a1385678605489d7ef289754b/Mathlib/Analysis/MeanInequalities.lean#L201-L205
 have hab : a ^ (0.5 : ℝ) * b ^ (0.5 : ℝ) ≤ (1/2) * a + (1/2) * b := by geom_mean_le_arith_mean2_weighted (1/2) (1/2) a b
-
 -- apply AM-GM to b,c
 
 -- apply AM-GM to a,c
