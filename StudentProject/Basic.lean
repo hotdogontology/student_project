@@ -89,3 +89,6 @@ have h1 : a + b + c < a * b + b * c + a * c := by
     _ = (a * c + b * c) + c := by ring
     _ < (a * c + b * c) + a * b := by rel [hc3]
     _ = a * b + b * c + a * c := by ring
+
+-- ab + bc + ca ≤ a^2 + b^2 + c^2
+sorry
