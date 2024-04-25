@@ -10,10 +10,14 @@
 -- and so abc ≥ ab + bc + ca ≥ a + b + c, contradiction.
 
 import Mathlib.Data.Real.Basic
+import Mathlib.Data.Real.NNReal
 import Mathlib.Tactic.Linarith
 import Mathlib.Tactic.FieldSimp
 import Mathlib.Algebra.Order.Field.Basic
 import Mathlib.Analysis.MeanInequalities
+
+--might need Real namespace instead?
+namespace NNReal
 
 example {a b c : ℝ } (ha: a > 0) (hb : b > 0) ( hc : c > 0) (h : a + b + c ≥ a * b * c) : ¬ (a ^ 2 + b ^ 2 + c ^ 2 < a * b * c) := by
 -- Suppose by way of contradiction that a^2 + b^2 + c^2 < abc
@@ -91,11 +95,15 @@ have h1 : a + b + c < a * b + b * c + a * c := by
     _ < (a * c + b * c) + a * b := by rel [hc3]
     _ = a * b + b * c + a * c := by ring
 
+sorry
+--possible plan: write lemma that takes in two real numbers and applies the AM-GM for 2 numbers to it
+--need to tell lean our a, b, and c have type Non-Negative Real (NNReal)
+
 -- apply AM-GM to a,b
 -- this is the right theorem but we need to get it to work
 -- might need to cast 1/2 to Real instead of using 0.5
 --https://github.com/leanprover-community/mathlib4/blob/03b471425ef6894a1385678605489d7ef289754b/Mathlib/Analysis/MeanInequalities.lean#L201-L205
-have hab : a ^ (0.5 : ℝ) * b ^ (0.5 : ℝ) ≤ (1/2) * a + (1/2) * b := by geom_mean_le_arith_mean2_weighted (1/2) (1/2) a b
+--need a theorem from here: https://leanprover-community.github.io/mathlib4_docs/Mathlib/Data/Real/NNReal.html
 -- apply AM-GM to b,c
 
 -- apply AM-GM to a,c
