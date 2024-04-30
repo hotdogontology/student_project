@@ -10,11 +10,10 @@
 -- and so abc ≥ ab + bc + ca ≥ a + b + c, contradiction.
 
 import Mathlib.Data.Real.Basic
-import Mathlib.Data.Real.NNReal
 import Mathlib.Tactic.Linarith
 import Mathlib.Tactic.FieldSimp
 import Mathlib.Algebra.Order.Field.Basic
-import Mathlib.Analysis.MeanInequalities
+import Mathlib.Analysis.MeanInequalitiesPow
 
 --might need Real namespace instead?
 namespace NNReal
@@ -82,8 +81,6 @@ have hc3 : c < a * b := by
     _ = a * b * 1 := by field_simp
     _ = a * b := by ring
 
--- abc ≥ a^2 + b^2 + c^2 ≥ ab + bc + ca by AM-GM
-
 --a + b + c < ab + bc + ca
 have h1 : a + b + c < a * b + b * c + a * c := by
   calc
@@ -96,18 +93,27 @@ have h1 : a + b + c < a * b + b * c + a * c := by
     _ = a * b + b * c + a * c := by ring
 
 sorry
---possible plan: write lemma that takes in two real numbers and applies the AM-GM for 2 numbers to it
---need to tell lean our a, b, and c have type Non-Negative Real (NNReal)
+-- plan: write lemma that takes in two real numbers and applies the AM-GM for 2 numbers to it
+--https://github.com/leanprover-community/mathlib4/blob/03b471425ef6894a1385678605489d7ef289754b/Mathlib/Analysis/MeanInequalities.lean#L201-L205
+-- def am_gm2 (x : ℝ) (y : ℝ) := add_rpow_le_rpow_add (Real.toNNreal x) (Real.toNNreal y)
 
 -- apply AM-GM to a,b
--- this is the right theorem but we need to get it to work
--- might need to cast 1/2 to Real instead of using 0.5
---https://github.com/leanprover-community/mathlib4/blob/03b471425ef6894a1385678605489d7ef289754b/Mathlib/Analysis/MeanInequalities.lean#L201-L205
---need a theorem from here: https://leanprover-community.github.io/mathlib4_docs/Mathlib/Data/Real/NNReal.html
+-- a^2 + b^2 ≥ 2ab
+
 -- apply AM-GM to b,c
+-- b^2 + c^2 ≥ 2bc
 
 -- apply AM-GM to a,c
+-- a^2 + c^2 ≥ 2ac
 
 -- add three cases of AM-GM and divide by 2
+-- (a^2 + b^2) + (b^2 + c^2) + (a^2 + c^2) ≥ 2ab + 2bc + 2ac
+-- 2a^2 + 2b^2 + 2b^2 ≥ 2ab + 2bc + 2ac
+-- a^2 + b^2 + c^2 > ab + bc + ca
 
 -- chain inequalities together to get a contradiction
+-- (h1) a + b + c < ab + bc + ac
+-- (h2) ab + bc + ac < a^2 + b^2 + c^2
+-- (H) a^2 + b^2 + c^2 < abc
+-- so a + b + c < abc
+-- but this contradicts (h) a + b + c ≥ abc
