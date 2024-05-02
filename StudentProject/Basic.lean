@@ -96,15 +96,19 @@ have h1 : a + b + c < a * b + b * c + a * c := by
 -- plan: write lemma that takes in two real numbers and applies the AM-GM for 2 numbers to it
 --https://github.com/leanprover-community/mathlib4/blob/03b471425ef6894a1385678605489d7ef289754b/Mathlib/Analysis/MeanInequalities.lean#L201-L205
 -- def am_gm2 (x : ℝ) (y : ℝ) := add_rpow_le_rpow_add (Real.toNNreal x) (Real.toNNreal y)
--- justify that x ^ (1/2) ^2 = x : https://leanprover-community.github.io/mathlib4_docs/Mathlib/Analysis/SpecialFunctions/Pow/Real.html#Real.pow_rpow_inv_natCast
+-- justify that x ^ (1/2) ^ 2 = x : https://leanprover-community.github.io/mathlib4_docs/Mathlib/Analysis/SpecialFunctions/Pow/Real.html#Real.rpow_inv_natCast_pow
+
 -- apply AM-GM to a,b
-have am_gm_ab : (1/2) * a + (1/2) * b ≥ (a * b) ^ (1/2) := by sorry
+have ab_am_gm : (a + b) / 2 ≥ (a * b) ^ (1/2) := by sorry
+
 -- a^2 + b^2 ≥ 2ab
 have hab : a ^ 2 + b ^ 2 ≥ 2 * a * b := by
   calc
-    a ^ 2 + b ^ 2 = a ^ 2 + 2 * a * b + b ^ 2 - 2 * a * b := by ring
-    _ = 4 * (a ^ 2 + 2 * a * b + b ^ 2 - 2 * a * b) / 4 := by ring
-    _
+    a ^ 2 + b ^ 2 = (a + b) ^ 2 - 2 * a * b := by ring
+    _ = 4 * ((a + b) / 2) ^ 2 - 2 * a * b := by ring
+    _ ≥ 4 * ((a * b) ^ (1/2)) ^ 2 - 2 * a * b := by rel [ab_am_gm]
+    _ = 4 * a * b - 2 * a * b := by ring_nf
+    _ = 2 * a * b := by ring
 
 
 -- apply AM-GM to b,c
