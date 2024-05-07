@@ -1,3 +1,10 @@
+-- Authors
+-- Ni Yuan, GSSM Class of 2024
+-- Teagan Mann, GSSM Class of 2025
+
+-- Advisor
+-- Taylor Belcher, GSSM Computer Science Instructor
+
 -- Problem Statement (IMO 1998 Ireland Problem 4)
 -- Let a,b,c be non-negative real numbers such that a + b + c ≥ abc.
 -- Prove that a^2 + b^2 + c ^2 ≥ abc.
@@ -17,6 +24,8 @@ import Mathlib.Analysis.MeanInequalitiesPow
 
 --might need Real namespace instead?
 namespace NNReal
+
+--do we need an open statement here?
 
 example {a b c : ℝ } (ha: a > 0) (hb : b > 0) ( hc : c > 0) (h : a + b + c ≥ a * b * c) : ¬ (a ^ 2 + b ^ 2 + c ^ 2 < a * b * c) := by
 -- Suppose by way of contradiction that a^2 + b^2 + c^2 < abc
