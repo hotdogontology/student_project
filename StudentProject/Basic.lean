@@ -1,3 +1,13 @@
+-- Authors
+-- Ni Yuan, GSSM Class of 2024
+-- Teagan Mann, GSSM Class of 2025
+
+-- Contributors
+-- Martin Dvorak, LEAN4 Zulip Chat
+
+-- Advisor
+-- Taylor Belcher, GSSM Computer Science Instructor
+
 -- Problem Statement (IMO 1998 Ireland Problem 4)
 -- Let a,b,c be non-negative real numbers such that a + b + c ≥ abc.
 -- Prove that a^2 + b^2 + c^2 ≥ abc.
@@ -95,36 +105,15 @@ have h1 : a + b + c < a * b + b * c + a * c := by
     _ < (a * c + b * c) + a * b := by rel [hc3]
     _ = a * b + b * c + a * c := by ring
 
---(a + b)/2 ≥ (ab).sqrt using amgm
---might not need this step now
 --thank you martin from zulip
-have ann : 0 ≤ a := le_of_lt ha
-have bnn : 0 ≤ b := le_of_lt hb
-have abnn : 0 ≤ a * b := Left.mul_nonneg ann bnn
-
-have hab : (a + b) / 2 ≥ (a * b).sqrt := by
-  have amgm := two_mul_le_add_sq a.sqrt b.sqrt
-  rw [Real.sqrt_mul']
-  rw [sq_sqrt ann, sq_sqrt bnn] at amgm
-  linarith
-  exact bnn
-
--- (b + c)/2 ≥ (bc).sqrt using amgm
-have hbc : (b + c) / 2 ≥ (b * c) ^ (1/2) := by
-  sorry
-
--- (a + c)/2 ≥ (ac).sqrt using amgm
-have hac : (a + c) / 2 ≥ (a * c) ^ (1/2) := by
-  sorry
-
 -- (a^2 + 2ab + b^2) ≥ ab
-have hab2 : a ^ 2 + b ^ 2 ≥ 2 * a * b := two_mul_le_add_sq a b
+have hab : a ^ 2 + b ^ 2 ≥ 2 * a * b := two_mul_le_add_sq a b
 
 -- (b^2 + 2bc + c^2) ≥ bc
-have hbc2 : b ^ 2 + c ^ 2 ≥ 2 * b * c := two_mul_le_add_sq b c
+have hbc : b ^ 2 + c ^ 2 ≥ 2 * b * c := two_mul_le_add_sq b c
 
 -- (a^2 + 2ac + c^2) ≥ ac
-have hac2 : a ^ 2 + c ^ 2 ≥ 2 * a * c := two_mul_le_add_sq a c
+have hac : a ^ 2 + c ^ 2 ≥ 2 * a * c := two_mul_le_add_sq a c
 
 -- the rest from previous ver
 
@@ -154,3 +143,5 @@ have h' : a + b + c < a * b * c := by
     _ < a * b * c := by rel [H]
 
 -- but this contradicts (h) a + b + c ≥ abc
+contrapose! h'
+exact h
