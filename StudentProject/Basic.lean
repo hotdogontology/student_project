@@ -115,7 +115,6 @@ have hbc : b ^ 2 + c ^ 2 ≥ 2 * b * c := two_mul_le_add_sq b c
 -- (a^2 + 2ac + c^2) ≥ ac
 have hac : a ^ 2 + c ^ 2 ≥ 2 * a * c := two_mul_le_add_sq a c
 
--- the rest from previous ver
 
 -- add three cases of AM-GM and divide by 2
 -- (a^2 + b^2) + (b^2 + c^2) + (a^2 + c^2) ≥ 2ab + 2bc + 2ac
